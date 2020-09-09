@@ -1,0 +1,102 @@
+﻿//************************************************************************//
+// this works GREAT , and lets the dialog update the parent form
+//************************************************************************//
+
+Using System;
+using System . Windows . Forms;
+namespace formtransfers
+{
+	public partial class Bank: Form
+	{
+		internal static Form2 form2;
+		internal static Bankform1;
+		public Bank( )
+		{
+			InitializeComponent ( );
+			form1 = this;//refering to the current Bank
+		}
+		public void ShowText ( string msg, int a, int b)//the method which I want to call
+		{
+			textBoxInBank. Text = msg;
+			if ( a == 1 )
+				checkBox1 . Checked = true;
+			else
+				checkBox1 . Checked = false;
+			textBoxInBank. Text = msg + "\nValue of a is " + a.ToString() + "& B is " + b.ToString();
+		}
+		private void CreateChild_Click ( object sender, EventArgs e )
+		{
+			form2 = new Form2 ( );
+			form2 . Show ( );
+		}
+		private void button2_Click ( object sender, EventArgs e )
+		{
+			Close ( );
+		}
+	}
+}
+/****************************************************************************
+// This is  the dialog form, and hoiw it is setup to call back to parent
+/****************************************************************************
+using System;
+using System . Windows . Forms;
+namespace formtransfers
+{
+	public partial class Form2 : Form
+	{
+		public Form2 ( )
+		{
+			InitializeComponent ( );
+		}
+		private void SendMessageButton_Click ( object sender, EventArgs e )
+		{
+			string msg = "It seems we may have JUST found the answer to our prayers,,,";
+			Bank. form1 . ShowText ( msg, 1,5);//the method defined in Bank
+		}
+		private void button2_Click ( object sender, EventArgs e )
+		{
+			Close ( );
+		}
+	}
+}
+//************************************************************************//
+
+{		
+		//**************************************************************************************************************************//
+		// This is the best way to load dialogs
+		private void createDelimitedCustomerDataToolStripMenuItem_Click ( object sender, EventArgs e )
+		//**************************************************************************************************************************//
+		{
+			// This is the best way ot hjandle dialogs and get data values back
+			using ( var form = new CreateData ( ) )
+			{
+				int total = 0, delimindx = 0;
+				var result = form . ShowDialog ( );
+				if ( result == DialogResult . OK )
+				{
+					// these values are specified in the dialog form as well as ** publics **
+					total = form . ReturnValue;            //values preserved after close
+					delimindx = form . ReturnValue2;   //values preserved after close
+					string del = "";
+					if ( delimindx == 0 ) del = ",";
+					if ( delimindx == 1 ) del = "\\t";
+					if ( delimindx == 2 ) del = ":";
+					else del = "~";
+					Utils . GenerateAddressFile ( total , delimindx);
+					Output2 . AppendText ( "A data file of " + total.ToString() + " records using [ " +del + "] as a delimiter  has been generated");
+					Output2 . ScrollToCaret (  );
+				}
+			}
+}
+
+//**************************************************************************************************************************//
+// top of the Dialogs file ashowing variables to be returned
+public partial class CreateData : Form
+//**************************************************************************************************************************//
+{
+	public int ReturnValue = 0;
+	public int ReturnValue2 = 0;
+	public CreateData ( )
+	{
+		InitializeComponent ( );
+}

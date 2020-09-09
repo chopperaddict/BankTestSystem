@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="48b0d295-660a-4d90-8ce0-9c43f6a162b0" ChangeDateTime="09/10/2020 07:24:54">
+    <Property Name="ElementName" Value="[dbo].[SecondaryCustAccounts].[AccountType1]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SecondaryCustAccounts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[AccountType]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2ac5c89b-bb37-4136-93e7-7f7d565b2c4b" ChangeDateTime="09/10/2020 07:25:04">
+    <Property Name="ElementName" Value="[dbo].[SecondaryCustAccounts].[AccountNum1]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SecondaryCustAccounts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[AccountNum]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7e1bdaa0-890d-4446-91fd-b78ec0b4e0ff" ChangeDateTime="09/10/2020 07:40:00">
+    <Property Name="ElementName" Value="[dbo].[FK_Customer_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Customer]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[SecondaryCustAccounts]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ce350778-47bf-43c7-9f93-64164c0c8bd2" ChangeDateTime="09/10/2020 07:40:18">
+    <Property Name="ElementName" Value="[dbo].[SecondaryCustAccounts]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Customer]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[SecAccounts]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f8778c04-29db-4d27-b501-653b703cc622" ChangeDateTime="09/13/2020 11:35:28">
+    <Property Name="ElementName" Value="[dbo].[SecondaryCustAccounts].[AccountType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SecondaryCustAccounts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AccountType1" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="015458e0-df4b-46b4-83ec-6d28ade46910" ChangeDateTime="09/13/2020 11:35:33">
+    <Property Name="ElementName" Value="[dbo].[SecondaryCustAccounts].[AccountNum]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SecondaryCustAccounts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AccountNum1" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0204d210-4dad-4a1c-b617-fad157f58ade" ChangeDateTime="09/14/2020 10:56:09">
+    <Property Name="ElementName" Value="[dbo].[BankAccount].[BankACNumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankAccount]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BankACNo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d67232c6-bcb5-4aa7-b6c8-2c166d6bd2d7" ChangeDateTime="09/14/2020 10:56:17">
+    <Property Name="ElementName" Value="[dbo].[BankAccount].[CustACNumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankAccount]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CustACNo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4753c3e0-5401-40f8-86ca-ed35d364af35" ChangeDateTime="09/14/2020 10:56:32">
+    <Property Name="ElementName" Value="[dbo].[BankAccount].[AccountType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankAccount]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AcType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d9d8e697-a92a-4059-9698-78c9823eb86a" ChangeDateTime="09/14/2020 10:57:08">
+    <Property Name="ElementName" Value="[dbo].[BankAccount].[InterestRate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[BankAccount]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[Interest]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1bcb5b8f-f4de-4873-9318-8a3703891443" ChangeDateTime="09/14/2020 11:29:16">
+    <Property Name="ElementName" Value="[dbo].[BankAccount].[IX_BankAccount_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[BankAccount]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_BankACNo_Column]" />
+  </Operation>
+</Operations>

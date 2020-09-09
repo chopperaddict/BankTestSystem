@@ -1,0 +1,43 @@
+﻿My Utility functions
+
+// These are called via Delegates
+
+Utils.Add()
+Handles addition for Int16, Int32, Int64, Decimal, double, float, and strings (concat)
+FormatToDecimal ( Int16 inval )
+Handles input from string, Int16, Int32, Decimal, fpoat & double values
+
+StringToxxxxx()
+handles converting a string to an int, decimal, Int32 or Int64 values
+
+string GetCurrencyString ( string amount )
+This uses the globaliazation stuff to return a fully formatted currency string 
+
+string  GetFieldCurrencyString ( string amount )
+This returns a string formatted like a currency, BUT without currency sign {£}
+
+string StripFilenameFromString ( string val1 )
+Returns just the filename from any string given to it, assuming it is in a sensible Directory format
+
+string Concat ( string val1, string val2 )
+concatenates 2 input strings
+
+number type Add(xxxx)
+Accepts int16, int32, decimal, double, float and even strings (concat)
+
+number type Multiply
+Accepts int16, int32, decimal, double, float and even strings (concat)
+
+number type Divide
+Accepts int16, int32, decimal, double, float and even strings (concat)
+
+string ReverseString ( string input )
+Reverses any string
+
+
+BankNoChangedEvent?.Invoke(DataArray.BankNo, "BankNo has changed");
+		public static event EventHandler<string> BankNoChangedEvent;
+
+					Customer.CustomerChangedEvent?.Invoke(Customer.CustomersLinkedList, "Customer LinkedList has been updated...");
+BankArrayChangedEvent ?. Invoke(DataArray.BankNo, "A new Account has been added to the Bank System");
+			

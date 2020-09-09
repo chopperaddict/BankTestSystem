@@ -1,0 +1,72 @@
+// This is how to access a hashtable !
+Hashtable ht = new Hashtable();
+         
+         ht.Add("001", "Zara Ali");
+         ht.Add("002", "Abida Rehman");
+        .....         
+        // Now to access the contents of the HashTable         
+         // We just need to get a collection of the keys.
+         ICollection key = ht.Keys;
+         // Now we can access the contents of the HashTable
+         // or rather, the KEY field
+         // Not sure how to access the other field
+         foreach (string k in key) {
+            Console.WriteLine(k + ": " + ht[k]);
+         }
+         //=============================================================================
+         // How to sort a SortedList in Desc order
+         var descendingComparer = Comparer<int>.Create((x, y) => y.CompareTo(x));
+        
+        SortedList<int, int> descSortedList = new SortedList<int, int>(descendingComparer);
+        descSortedList.Add(1, 1);
+        ...
+        for (int i = 0; i < descSortedList.Count; i++)
+        {
+            Console.WriteLine("key: {0}, value: {1}", descSortedList.Keys[i], descSortedList.Values[i]);
+        }
+         //=============================================================================
+
+         // Another way.....
+         class DecendingComparer<TKey>: IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                return y.CompareTo(x);
+            }
+        }
+
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                SortedList<int, int> descSortedList = new SortedList<int, int>(new DecendingComparer<int>());
+                descSortedList.Add(1, 1);
+                ...
+                for (int i = 0; i < descSortedList.Count; i++)
+                {
+                    Console.WriteLine("key: {0}, value: {1}", descSortedList.Keys[i], descSortedList.Values[i]);
+                }
+        }
+
+        working code I have sed :-
+                          // We CAN use   ICollection key = CustomerBalanceHashTable.CustNoBalHashTable.Keys;
+                  // which gives us just the KEY field, but using Dictionary, we can access both data items
+
+                  //*********************************************************************************//
+                  /*
+                   *                var descendingComparer = Comparer<string>.Create((x, y) => y.CompareTo(x));
+                                    var ascendingComparer = Comparer<string>.Create((x, y) => x.CompareTo(y));
+
+                                    SortedList<string, string> descSortedList = new SortedList<string, string>(ascendingComparer);
+                                    ICollection IC = CustomerBalanceHashTable.CustNoBalHashTable.Values;
+                                    descSortedList = (SortedList<string, string>IC)
+
+                                    Output.AppendText("Account  # + current A/C Balance from HashTable Sorted Descending ?:\r\n");
+                                    foreach (var  H in descSortedList)
+                                    {
+                                          Output.AppendText(H.Key.ToString() + "\t" + H.Value + "\r\n");
+                                          Output.ScrollToCaret();
+                                    }
+                  */
+
+
