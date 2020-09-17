@@ -52,24 +52,36 @@ namespace ClassAccessTest
 
         private static int _exporttype = 0;
 
-//        public static Dictionary<Int32, Customer> CustDictionary = new Dictionary<Int32, Customer> ();
-//        public static Dictionary<Int32, BankAccount> BankDictionary = new Dictionary<Int32, BankAccount> ();
+		//        public static Dictionary<Int32, Customer> CustDictionary = new Dictionary<Int32, Customer> ();
+		//        public static Dictionary<Int32, BankAccount> BankDictionary = new Dictionary<Int32, BankAccount> ();
 
+//		public Delegate void SQLDataHandler(string);
+//		public event SQLDataHandler  MySQLReceived;
+
+	    public  delegate void MySQLReceived( string datain);
 		//*******************************************************************************************************//
 		//									THIS IS SINGLETON SUPPORT CODE
 		//*******************************************************************************************************//
 
 		// heres our declaration of the Delegate
-		public delegate void HelloFunctionDelegate (string Message);
+		/*		public delegate void HelloFunctionDelegate (string Message);
 
-        private void Rundelegate_Click (object sender, EventArgs e)
-        {
+*/
+/*		private void MySQLReceived(string s){
+			MessageBox . Show ( "In MySQLReceived Delegate handler..." );
+		}
+	  */
+		private void Rundelegate_Click( Bank b , string s)
+		{
+			MessageBox.Show("In Rundelegate_Click");
+		}
+/*        {
             // This DOES create a valid Delegate object - should then be available globally
 
             HelloFunctionDelegate del = new HelloFunctionDelegate ( Hello );
             del ( "Hello from Delegate, here the called function processing a For() loop\r\n" );
         }
-        //*******************************************************************************************************//
+    */    //*******************************************************************************************************//
         //									END OFSINGLETON SUPPORT CODE
         //*******************************************************************************************************//
 
@@ -98,6 +110,9 @@ namespace ClassAccessTest
                 }
             }
             Bank.form1.Output2.AppendText ( " Thats it, all done......\r\n" );
+
+//            SQLConnector.sqloutputform.Data.Text += "££££";
+
         }
 
         //**************************************************************************************************************************//
@@ -146,9 +161,8 @@ namespace ClassAccessTest
             int Ccount = 0;
 
             if ( SerializeData.ReadBankDictionaryFromDisk ( ) )
-            { Output2.AppendText ("Bank Dictionary loaded successfully...\r\n"); Output2.ScrollToCaret ( ); }
-            else { Output2.AppendText ("Bank Dictionary Failed to load...\r\n"); Output2.ScrollToCaret ( ); }
-            Output2.AppendText ("Bank Dictionary holds " + BankAccount.BankDict.Count + " records that were loaded successfully...\r\n");
+			{Output2.AppendText ( "Bank Dictionary holds " + BankAccount.BankDict.Count + " records that were loaded successfully...\r\n" );}
+			else { Output2.AppendText ("Bank Dictionary Failed to load...\r\n"); Output2.ScrollToCaret ( ); }
             if ( SerializeData.ReadCustomerDictionaryFromDisk ( ) )
             {
 	            Output2.AppendText ("Customer Dictionary loaded successfully...\r\n"); Output2.ScrollToCaret ( );
@@ -232,16 +246,19 @@ namespace ClassAccessTest
 			//**************************
 			BankAccount.BankAccountEvents ( );
             Customer.CustomerEvents ( );
-/*            Customer.CustNoChangedEvent += Customer.Bank_CustNoChangedEvent1;
-            Customer.CustListChangedEvent += Customer.Bank_CustListChangedEvent;
-            Customer.CustAccountChangedEvent += Bank_CustAccountChangedEvent;
-            Customer.CustomerChangedEvent += Bank_CustomerChangedEvent;
-   **/         
+//            SQLDataReceived += SqlConnector.SqlConnector_SQLDataReceived("", "");
+
+            /*         Customer.CustNoChangedEvent += Customer.Bank_CustNoChangedEvent1;
+			         Customer.CustListChangedEvent += Customer.Bank_CustListChangedEvent;
+			         Customer.CustAccountChangedEvent += Bank_CustAccountChangedEvent;
+			         Customer.CustomerChangedEvent += Bank_CustomerChangedEvent;
+            **/
             //**************************
         }
-        // use this code - moved up into Bank.
-        //**************************************************************************************************************************//
-        public static Control.ControlCollection GetControlList2 (Form form1, string name)//, out object ctrl )
+
+	// use this code - moved up into Bank.
+	//**************************************************************************************************************************//
+	public static Control.ControlCollection GetControlList2 (Form form1, string name)//, out object ctrl )
                                                                                          //**************************************************************************************************************************//
         {
 //            Form form = new Form ( );
@@ -1915,14 +1932,13 @@ namespace ClassAccessTest
 
 		private void SQL_Connect_Click (object sender, EventArgs e)
 		{
-			//			SQLHelper.SQLConnect ( );
-			sqlconnector sqlc = new sqlconnector ( );
-			var result = sqlc.ShowDialog ( );
+			SqlConnector sqconnector = new SqlConnector ( );
+			sqconnector.Show( );
 		}
 
 		private void SQLQuery_Click (object sender, EventArgs e)
 		{
-			sqlconnector sql = new sqlconnector ( );
+			SqlConnector sql = new SqlConnector ( );
 			sql.ShowDialog ( );
 
 		}

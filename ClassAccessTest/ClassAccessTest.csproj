@@ -8,7 +8,7 @@
     <ProjectGuid>{51788E41-0594-4D43-A637-0095F8EA1046}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ClassAccessTest</RootNamespace>
-    <AssemblyName>ClassAccessTest</AssemblyName>
+    <AssemblyName>BankAccountTesting</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -248,16 +248,22 @@
       <DependentUpon>SortArray.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLAccess.cs" />
-    <Compile Include="sqlconnector.cs">
+    <Compile Include="SqlConnector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="sqlconnector.Designer.cs">
-      <DependentUpon>sqlconnector.cs</DependentUpon>
+    <Compile Include="SqlConnector.Designer.cs">
+      <DependentUpon>SqlConnector.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLConnector1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLConnector.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SqlDataView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SqlDataView.Designer.cs">
+      <DependentUpon>SqlDataView.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLDbSelector.cs">
       <SubType>Form</SubType>
@@ -266,6 +272,7 @@
       <DependentUpon>SQLDbSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLHelper.cs" />
+    <Compile Include="stringhandler.cs" />
     <Compile Include="UpdateCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -341,6 +348,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SQLConnector1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SqlDataView.resx">
+      <DependentUpon>SqlDataView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SQLDbSelector.resx">
       <DependentUpon>SQLDbSelector.cs</DependentUpon>
     </EmbeddedResource>
@@ -376,6 +386,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BankDataSet.BankAccountRowChangeEvent.datasource" />
     <None Include="Properties\DataSources\ClassAccessTest.BankDataSetTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
+    <None Include="Properties\DataSources\ClassAccessTest.delegates.delegates.datasource" />
     <None Include="Properties\DataSources\CollectionTestClass`1[].datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -393,6 +404,7 @@
   <ItemGroup>
     <Content Include="Info1.txt" />
     <Content Include="TextFile1.txt" />
+    <Content Include="TextFile2.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

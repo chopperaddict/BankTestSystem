@@ -233,10 +233,13 @@ namespace ClassAccessTest
             //SAVE BANK OBJECT BACK TO DISK
             SerializeData.WriteBankAccountToDiskAndText(Bank, Bank.FullFileName);
             DataArray.ArrayAddBank(Bank);
-            if ( !BankAccount.BankDict.ContainsKey (Bank.BankAccountNumber) )
-            BankAccount.BankDict.Add (Bank.BankAccountNumber, Bank);
-            // handle the Linkedlist as well
-			// CREATE A NEW BANK TRANSACTION
+            if (BankAccount.BankDict != null)
+            {
+	            if (!BankAccount.BankDict.ContainsKey( Bank.BankAccountNumber ))
+		            BankAccount.BankDict.Add( Bank.BankAccountNumber, Bank );
+            } // handle the Linkedlist as well
+
+            // CREATE A NEW BANK TRANSACTION
 			BankTransaction newbankaccount = new BankTransaction();
             newbankaccount.TransDate = DateTime.Now;
             newbankaccount.AccountType = Bank.AccountType;
@@ -288,8 +291,11 @@ namespace ClassAccessTest
                     // save our Customer LinkedList to disk as binary and txt files
                     Lists.SaveAllCustomerListData(Customer.CustomerFilePath + "CustSortedListData.cust");
                     DataArray.ArrayAddCust(Cust);
-                    if ( !Customer.CustDict.ContainsKey (Cust.CustomerNumber) )
-		               Customer.CustDict.Add (Cust.CustomerNumber, Cust);
+                    if (Customer.CustDict != null)
+                    {
+	                    if (!Customer.CustDict.ContainsKey( Cust.CustomerNumber ))
+		                    Customer.CustDict.Add( Cust.CustomerNumber, Cust );
+                    }
                 }
 				catch { new Exception("Customer Linked List coukld not be updated in bankaccountEdit.cs cline 103"); }
             }

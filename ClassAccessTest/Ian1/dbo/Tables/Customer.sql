@@ -8,6 +8,8 @@
     [Town]         NVARCHAR(200) NOT NULL,
     [County]       NVARCHAR(200) NOT NULL,
     [Postcode]     NVARCHAR(50) NOT NULL,
+    [PhoneNumber] NVARCHAR(20) NOT NULL, 
+    [MobileNumber] NVARCHAR(20) NOT NULL, 
     [DOB] DATE NOT NULL DEFAULT getdate(), 
     [FileName]     NVARCHAR(200) NOT NULL,
     [FullFileName] NVARCHAR(200) NOT NULL,

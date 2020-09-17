@@ -204,7 +204,11 @@ namespace ClassAccessTest
 				DataArray.CustNo.RemoveAt(index);
 				Customer.CustDict.Remove(index );
 				DataArray.ArrayAddCust(Cust);
-				Customer.CustDict.Add(Cust.CustomerNumber, Cust);
+				if (Customer.CustDict != null)
+				{
+					Customer.CustDict.Add( Cust.CustomerNumber, Cust );
+				}
+
 				/*
 											// already updated previously
 												// update Customer  LinkedList
@@ -257,9 +261,12 @@ namespace ClassAccessTest
 				// Now we can update ArrayList safely
 				if ( indx != -1 ) {
 					DataArray.ArrayAddBank(Bank);
-					if ( !BankAccount.BankDict.ContainsKey (Bank.BankAccountNumber) )
-						BankAccount.BankDict.Add (Bank.BankAccountNumber, Bank);
-			} // Write a transaction record too....
+					if (BankAccount.BankDict != null)
+					{
+						if (!BankAccount.BankDict.ContainsKey( Bank.BankAccountNumber ))
+							BankAccount.BankDict.Add( Bank.BankAccountNumber, Bank );
+					}
+				} // Write a transaction record too....
 
 				BankTransaction newbankaccount = new BankTransaction ( );
 				newbankaccount.TransDate = DateTime.Now;

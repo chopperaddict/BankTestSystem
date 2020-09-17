@@ -16,40 +16,27 @@ namespace ClassAccessTest
 	public partial class BankDBView : Form
 	{
 		private bool dirty = false;
-		private bool UseThreads = false;
+		private bool UseThreads = true;
 		//private SqlDataAdapter dataAdapter = new SqlDataAdapter ( );
 		public BankDBView ( )
 		{
 			InitializeComponent ( );
 		}
-/*
-		private async Task <LoadData> BankGridLoadAsync ( )
-		{
-			Task<Task> tsx = new Task<Task>(LoadBankData);
-			return Task(tsx);
-		}
 
-		async Task<string> LoadBankData()
-		{
-			BankGridView.DataSource = bankAccountBindingSource;
-			bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
-			Task tsk = Task.CompletedTask;
-		}
-*/
-		private void BankDBView_Load (object sender, EventArgs e)
+		private async void BankDBView_Load (object sender, EventArgs e)
 		//==============================================================================
 		{
-			this.Show ( );
 			info.Text = "Please wait, loading all Bank Account's data from SQL Database...";
-			if ( !UseThreads )
+			if (UseThreads )
 			{
-				// TODO: This line of code loads data into the 'bankDataSet.BankAccount' table. You can move, or remove it, as needed.
-				//				var launchthread = new Thread (( ) => {
-				//					bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
-				//				});
-				BankGridView.DataSource = bankAccountBindingSource;
-				bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
-				//				launchthread.Start ( );
+				// Callng an async Function FillGridView() just above here
+				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ( );
+				sw.Start ( );
+				//				Task t = Task.Factory.StartNew (Action);
+				//			await t.Start(FillGridView (t));
+				var LoadSql = FillGridView (3);
+				sw.Stop();
+				info.Text = ($"Time taken to load SQL data was {sw.Elapsed} milliSeconds");
 			}
 			else
 			{
@@ -62,7 +49,7 @@ namespace ClassAccessTest
 				info.Text = "Loading ALL Bank Accounts from SQL Database - Please wait ...";
 				Task.Run ((( ) => RunBankLoadThread ( )));
 				Cursor = Cursors.Default;
-				GetData ("Select from BankAccount");
+//				GetData ("Select from BankAccount");
 			}
 		}
 
@@ -70,21 +57,39 @@ namespace ClassAccessTest
 		//==============================================================================
 		{
 			// This loads the Bank data very well
-			this.UseThreads = true;
+			//			this.UseThreads = true;
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ( );
+			sw.Start ( );
 			//make sure we have our data binding sorted out
 			BankGridView.DataSource = bankAccountBindingSource;
 			bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
-			info.Text = "ALL Customer Accounts have been loaded from SQL Database ...";
+			sw.Stop();
+			info.Text = $"ALL Customer Accounts have been loaded in {sw.Elapsed} milliseconds from SQL Database ...";
 		}
 
-		private void loadSQLData_Click (object sender, EventArgs e)
-		//==============================================================================
+		private async Task<string> FillGridView (int slices)
 		{
-			// This loads the Bank data very well
-			this.UseThreads = true;
 			BankGridView.DataSource = bankAccountBindingSource;
 			bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
+			return "DBType";
+		}
 
+		private async void loadSQLData_Click (object sender, EventArgs e)
+		//==============================================================================
+		{
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ( );
+			sw.Start ( );
+			var LoadSql = FillGridView (3);
+			sw.Stop ( );
+			info.Text = $"ALL Customer Accounts have been loaded in {sw.Elapsed} milliseconds from SQL Database ...";
+			// This loads the Bank data very well - Fn is above
+			//			Task finishedTask = Task.WhenAny (LoadSql);
+			return;
+//			this.UseThreads = true;
+			/*
+			BankGridView.DataSource = bankAccountBindingSource;
+			bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
+			   */
 			/*			info.Text = "ALL Customer Accounts have been loaded from SQL Database ...";
 						var ds = bankAccountBindingSource.DataSource;
 			//			bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
@@ -98,17 +103,6 @@ namespace ClassAccessTest
 						GetData (cmd);
 						//			BankGridView.VirtualMode = true;
 			*/
-		}
-		private void reloadsql_Click (object sender, EventArgs e)
-		//==============================================================================
-		{
-			// This loads the Bank data very well
-			this.UseThreads = true;
-			// This refills it with data from the Db
-			// once it's DataSource is reset (after a clear)
-			BankGridView.DataSource = bankAccountBindingSource;
-			bankAccountTableAdapter.Fill (bankDataSet.BankAccount);
-			info.Text = "ALL Customer Accounts have been loaded from SQL Database ...";
 		}
 
 		private void button3_Click (object sender, EventArgs e)
@@ -125,9 +119,10 @@ namespace ClassAccessTest
 		}
 
 		private void ClearGridView ( )
-			//==============================================================================
+		//==============================================================================
 		{
-			if ( this.InvokeRequired ) _ = this.Invoke (new Action (this.ClearGridView));{
+			if ( this.InvokeRequired ) _ = this.Invoke (new Action (this.ClearGridView));
+			{
 				BankGridView.DataSource = null;
 				BankGridView.Rows.Clear ( );
 				BankGridView.Refresh ( );
@@ -135,27 +130,19 @@ namespace ClassAccessTest
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
-			//==============================================================================
+		private void button1_Click (object sender, EventArgs e)
+		//==============================================================================
 		{ /// Clear the dataview
-			// This clears the entire table of Bank data very well
-
-			ClearGridView();
+			// This clears the entire table of Bank data very well	   
+			ClearGridView ( );
 		}
 
 		/*
-
-		{
-				this.UseThreads = true; // Not sure if this helps at all ?
-										// This clears the GridView very well
-				info.Text = "Clearing all data from the SQL Database Viewer...";
-				this.UseThreads = true;
-				BankGridView.DataSource = null;
+	`			BankGridView.DataSource = null;
 				BankGridView.Rows.Clear ( );
 				info.Text = "All data cleared from the SQL Database Viewer...";
 
 
-		//			ClearGridView ( );
 		// the rest is teting.
 		//dataAdapter.Fill (table);
 		/*
@@ -180,11 +167,7 @@ namespace ClassAccessTest
 		private void GetData (string selectCommand)
 		//==============================================================================
 		{
-			/*			await Task.Run ((( ) => RunBankLoadThread ( )));
-						Cursor = Cursors.Default;
-						return;
-			*/
-			try
+/*			try
 			{
 				Cursor = Cursors.WaitCursor;
 				// Specify a connection string. Replace the given value with a 
@@ -219,8 +202,7 @@ namespace ClassAccessTest
 				Cursor = Cursors.Default;
 				MessageBox.Show (ex.Message);
 			}
+*/		}
+
 		}
-
-
-	}
 }

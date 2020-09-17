@@ -190,9 +190,12 @@ namespace ClassAccessTest
                             B.Status = 1;
                             BankAccount.BankAccountsLinkedList.AddLast ( B );  // Add this one to our linked list of customers.
                             DataArray.ArrayAddBank ( B );
-                            if ( !BankAccount.BankDict.ContainsKey (B.BankAccountNumber) )
-								BankAccount.BankDict.Add (B.BankAccountNumber, B);
-							SerializeData.WriteBankAccountToDiskAndText ( B, fi );
+                            if (BankAccount.BankDict != null)
+                            {
+	                            if (!BankAccount.BankDict.ContainsKey( B.BankAccountNumber ))
+		                            BankAccount.BankDict.Add( B.BankAccountNumber, B );
+                            }
+                            SerializeData.WriteBankAccountToDiskAndText ( B, fi );
                             count++;
                             break;
                         }

@@ -49,8 +49,11 @@ namespace ClassAccessTest
 					{
 						BankAccount.BankAccountsLinkedList.AddLast (B);
 						DataArray.ArrayAddBank (B);
-						if ( !BankAccount.BankDict.ContainsKey (B.BankAccountNumber) )
-							BankAccount.BankDict.Add (B.BankAccountNumber, B);
+						if (BankAccount.BankDict != null)
+						{
+							if (!BankAccount.BankDict.ContainsKey( B.BankAccountNumber ))
+								BankAccount.BankDict.Add( B.BankAccountNumber, B );
+						}
 					}
 					catch
 					{ new Exception (" Failed to update LinkeList or Bank array in RebuildBankDataFromTextFiles at line 311"); }

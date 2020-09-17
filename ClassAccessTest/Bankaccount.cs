@@ -54,7 +54,7 @@ namespace ClassAccessTest
         public static int GetAccountType(BankAccount bank) { return bank.AccountType; }
         //We will create a new Transaction instance for all deposits & withdrawls, including initial opening depost
         protected decimal m_Value = 0.00M;
-        public static Dictionary<Int32, BankAccount > BankDict;
+        public static Dictionary<Int32, BankAccount > BankDict = new Dictionary<Int32, BankAccount>();
 
 		public BankAccount ()
 		{
@@ -209,8 +209,12 @@ namespace ClassAccessTest
             BankTransaction.allBankTransactions.AddLast(newbankaccount);
             BankAccountsLinkedList.AddLast(bank);
             DataArray.ArrayAddBank(bank);
-            if ( !BankAccount.BankDict.ContainsKey (bank.BankAccountNumber) )
-				BankAccount.BankDict.Add (bank.BankAccountNumber, bank);
+			// Update our new Dictionary system
+			if (BankAccount.BankDict != null)
+			{
+				if ( !BankAccount.BankDict.ContainsKey (bank.BankAccountNumber) )
+					BankAccount.BankDict.Add (bank.BankAccountNumber, bank);
+			}
             // This saves the bank LinkedList to both an object file and a Text file
 			Lists.SaveAllBankAccountListData();
 
@@ -259,7 +263,9 @@ namespace ClassAccessTest
                     // now do the bankno array
                     int index = DataArray.ArrayFindBank(Bank);                    
                    DataArray.BankNo.RemoveAt(index);
-                   BankDict.Remove (index);
+                   // Update our new Dictionary system
+				   if(BankDict != null)
+					BankDict.Remove (index);
                    
 					 // Then delete the bank object itself
 					//                    Bank.Dispose();
@@ -275,6 +281,7 @@ namespace ClassAccessTest
 
                     BankTransaction.allBankTransactions.AddLast(bt);
                     result  = true;
+                   	//Trigger our event
                     BankListChangedEvent?.Invoke(Bank, "BANKACCOUNT DELETED");
                     break;
                  }
@@ -378,8 +385,11 @@ namespace ClassAccessTest
                             count++;
                             BankAccountsLinkedList.AddLast(B);
                             DataArray.ArrayAddBank(B);
-                            if ( !BankAccount.BankDict.ContainsKey (B.BankAccountNumber) )
-								BankAccount.BankDict.Add (B.BankAccountNumber, B);
+                            if (BankAccount.BankDict != null)
+                            {
+	                            if (!BankAccount.BankDict.ContainsKey( B.BankAccountNumber ))
+		                            BankAccount.BankDict.Add( B.BankAccountNumber, B );
+                            }
                         }
 						catch { }
                         new Exception(" Failed ot update LinkeList of sortedlist in RebuildCustLinkedList atliner 366");

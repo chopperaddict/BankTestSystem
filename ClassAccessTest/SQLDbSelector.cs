@@ -12,7 +12,7 @@ namespace ClassAccessTest
 {
 	public partial class SQLDbSelector : Form
 	{
-		public string threadArg1;
+		
 		public SQLDbSelector ( )
 		{
 			InitializeComponent ( );
@@ -20,15 +20,15 @@ namespace ClassAccessTest
 
 		private void button2_Click (object sender, EventArgs e)
 		{
-			if ( radioButton1.Checked ) threadArg1 = "Customer";
-			else if ( radioButton2.Checked ) threadArg1 = "BankAccount";
-			else if ( radioButton3.Checked ) threadArg1 = "SecondaryCustAccounts";
+			if ( radioButton1.Checked ) SqlConnector.threadArg1 = "Customer";
+			else if ( radioButton2.Checked ) SqlConnector.threadArg1= "BankAccount";
+			else if ( radioButton3.Checked ) SqlConnector.threadArg1 = "SecondaryCustAccounts";
 			Close ( );
 		}
 
 		private void button1_Click (object sender, EventArgs e)
 		{
-			threadArg1 = "";
+			SqlConnector.threadArg1 = "";
 			Close();
 		}
 	}

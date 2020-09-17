@@ -73,12 +73,14 @@ namespace ClassAccessTest
         {
             int count = 0;
             DataArray.BankNo.Clear();
-            BankAccount.BankDict.Clear ();
+			if (BankAccount.BankDict != null)
+				BankAccount.BankDict.Clear ();
 
 			foreach ( BankAccount c in DataArray.BankNo)
             {
                 DataArray.BankNo.Remove(c); count++;
-                BankAccount.BankDict.Remove (c.BankAccountNumber);
+                if (BankAccount.BankDict != null)
+					BankAccount.BankDict.Remove (c.BankAccountNumber);
             }
 			if (count > 0)
                 return false;
@@ -91,11 +93,13 @@ namespace ClassAccessTest
         {
             int count = 0;
             DataArray.CustNo.Clear();
-            Customer.CustDict.Clear ( );
+			if(Customer.CustDict != null)
+				Customer.CustDict.Clear ( );
             foreach ( Customer c in DataArray.CustNo)
             {
                 DataArray.CustNo.Remove(c); count++;
-                Customer.CustDict.Remove(c.CustomerNumber);
+                if (Customer.CustDict != null)
+					Customer.CustDict.Remove(c.CustomerNumber);
             }
 			if (count > 0)
                 return false;
@@ -357,22 +361,22 @@ namespace ClassAccessTest
             return result;
         }
         //=========================================================================//
-        public static int RebuildBankArrayFromLinkedList()
-        //=========================================================================//
+        public static int RebuildBankArrayFromLinkedList ( )
+	        //=========================================================================//
         {
-            int count = 0;
-            DataArray.ArrayClearBank();
-            foreach (BankAccount Bank in BankAccount.BankAccountsLinkedList)
-            {
-                if (Bank! != null)
-                { DataArray.ArrayAddBank(Bank); count++; }
-            }
-            return count;
+	        int count = 0;
+	        DataArray.ArrayClearBank ( );
+	        foreach (BankAccount Bank in BankAccount.BankAccountsLinkedList)
+	        {
+		        if (Bank! != null)
+		        { DataArray.ArrayAddBank ( Bank ); count++; }
+	        }
+	        return count;
 
         }
         //=========================================================================//
-        //EXTERNAL  
-        public Int16 LoadArraysFromDisk(out int Bcount, out int Ccount)
+		//EXTERNAL  
+		public Int16 LoadArraysFromDisk(out int Bcount, out int Ccount)
         //=========================================================================//
         {
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -403,8 +407,11 @@ namespace ClassAccessTest
                     if (B != null)
                     {
                         DataArray.ArrayAddBank(B);     // Add to bank ArrayList
-                        if(!BankAccount.BankDict.ContainsKey(B.BankAccountNumber))
-							BankAccount.BankDict.Add (B.BankAccountNumber, B);
+                        if (BankAccount.BankDict != null)
+                        {
+	                        if (!BankAccount.BankDict.ContainsKey( B.BankAccountNumber ))
+		                        BankAccount.BankDict.Add( B.BankAccountNumber, B );
+                        }
                         Bcount++;
                         BankAccount.BankAccountsLinkedList.AddLast(B);
                         Customer C = (Customer)SerializeData.ReadCustomerDiskObject(dir2 + "Custobj" + B.CustAccountNumber + ".cust");
@@ -424,8 +431,12 @@ namespace ClassAccessTest
                             if (!duplicated)
                             {
                                 DataArray.ArrayAddCust(C);     // The one and only Customer ArrayList addition in this Fn()
-                                if ( !Customer.CustDict.ContainsKey (C.CustomerNumber) )
-									Customer.CustDict.Add (C.CustomerNumber, C);
+                                if (Customer.CustDict != null)
+                                {
+	                                if (!Customer.CustDict.ContainsKey( C.CustomerNumber ))
+		                                Customer.CustDict.Add( C.CustomerNumber, C );
+                                }
+
                                 Ccount++;
                                 Customer.CustomersLinkedList.AddLast(C);
                             }

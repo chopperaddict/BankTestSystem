@@ -1,6 +1,6 @@
 ﻿namespace ClassAccessTest
 {
-	partial class sqlconnector
+	partial class SqlConnector
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -11,13 +11,13 @@
 		/// Clean up any resources being used.
 		/// </summary>
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose (bool disposing)
+		protected override void Dispose ( bool disposing )
 		{
-			if ( disposing && (components != null) )
+			if (disposing && (this.components != null))
 			{
-				components.Dispose ( );
+				this.components.Dispose ( );
 			}
-			base.Dispose (disposing);
+			base.Dispose ( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -48,8 +48,10 @@
 			this.MathCommands = new System.Windows.Forms.ListBox();
 			this.schemas = new System.Windows.Forms.Button();
 			this.Data = new System.Windows.Forms.RichTextBox();
-			this.sqlcommandslist = new System.Windows.Forms.ListBox();
-			this.MathsValues = new System.Windows.Forms.ListBox();
+			this.sqlcommandlist = new System.Windows.Forms.ListBox();
+			this.sqlcommandvalues = new System.Windows.Forms.ListBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// sqlConnect
@@ -115,9 +117,9 @@
 			this.clear.Name = "clear";
 			this.clear.Size = new System.Drawing.Size(96, 40);
 			this.clear.TabIndex = 6;
-			this.clear.Text = "Clear List";
+			this.clear.Text = "Clear Display";
 			this.clear.UseVisualStyleBackColor = false;
-			this.clear.Click += new System.EventHandler(this.clear_Click_1);
+			this.clear.Click += new System.EventHandler(this.clear_Click_2);
 			// 
 			// WriteCSVtoCust
 			// 
@@ -357,9 +359,9 @@
 			// 
 			this.ProcessSQL.BackColor = System.Drawing.Color.Gold;
 			this.ProcessSQL.ForeColor = System.Drawing.Color.Black;
-			this.ProcessSQL.Location = new System.Drawing.Point(732, 191);
+			this.ProcessSQL.Location = new System.Drawing.Point(747, 478);
 			this.ProcessSQL.Name = "ProcessSQL";
-			this.ProcessSQL.Size = new System.Drawing.Size(96, 40);
+			this.ProcessSQL.Size = new System.Drawing.Size(81, 40);
 			this.ProcessSQL.TabIndex = 21;
 			this.ProcessSQL.Text = "Process SQL VvV commands ";
 			this.ProcessSQL.UseVisualStyleBackColor = false;
@@ -385,8 +387,9 @@
 			this.MathCommands.ItemHeight = 16;
 			this.MathCommands.Location = new System.Drawing.Point(476, 386);
 			this.MathCommands.Name = "MathCommands";
-			this.MathCommands.Size = new System.Drawing.Size(352, 132);
+			this.MathCommands.Size = new System.Drawing.Size(265, 132);
 			this.MathCommands.TabIndex = 23;
+			this.MathCommands.SelectedIndexChanged += new System.EventHandler(this.MathCommands_SelectedIndexChanged);
 			this.MathCommands.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MathCommands_KeyDown);
 			// 
 			// schemas
@@ -399,7 +402,6 @@
 			this.schemas.TabIndex = 24;
 			this.schemas.Text = "List Db Schemas";
 			this.schemas.UseVisualStyleBackColor = false;
-			this.schemas.Click += new System.EventHandler(this.schemas_Click);
 			// 
 			// Data
 			// 
@@ -414,21 +416,24 @@
 			this.Data.Size = new System.Drawing.Size(612, 243);
 			this.Data.TabIndex = 25;
 			this.Data.Text = "SQL result in Text Format...";
-			this.Data.TextChanged += new System.EventHandler(this.Data_TextChanged);
 			// 
-			// sqlcommandslist
+			// sqlcommandlist
 			// 
-			this.sqlcommandslist.BackColor = System.Drawing.SystemColors.InactiveCaption;
-			this.sqlcommandslist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.sqlcommandslist.HorizontalScrollbar = true;
-			this.sqlcommandslist.IntegralHeight = false;
-			this.sqlcommandslist.ItemHeight = 16;
-			this.sqlcommandslist.Items.AddRange(new object[] {
+			this.sqlcommandlist.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.sqlcommandlist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.sqlcommandlist.HorizontalScrollbar = true;
+			this.sqlcommandlist.IntegralHeight = false;
+			this.sqlcommandlist.ItemHeight = 16;
+			this.sqlcommandlist.Items.AddRange(new object[] {
             "[DOUBLE CLICK ON ANY SELECTION]",
             "[Enter items one per line]",
             "Select ",
+            "Select * ",
             "Select TOP 100 ",
-            "Select TOP 100 ",
+            "Select TOP 250 ",
+            "Select From Customer",
+            "Select From BankAccount",
+            "Select from SecondaryCustAccounts",
             "Insert into Customer ( ",
             "Insert into BankAccount ( ",
             "Insert into SecondaryCustAccounts ( ",
@@ -440,41 +445,41 @@
             "Alter SecondaryCustAccounts ( ",
             "",
             "[CUSTOMER FIELDS]",
-            "CustomerNumber",
-            "FirstName",
-            "LastName",
-            "PhoneNumber",
-            "MobileNumber",
-            "Address1",
-            "Address2",
-            "Town",
-            "County",
-            "PostCode",
-            "DOB",
-            "FileName",
-            "FullFileName,",
-            "SecAccounts",
+            "CustomerNumber, ",
+            "FirstName, ",
+            "LastName, ",
+            "PhoneNumber, ",
+            "MobileNumber, ",
+            "Address1, ",
+            "Address2, ",
+            "Town, ",
+            "County, ",
+            "PostCode, ",
+            "DOB, ",
+            "FileName, ",
+            "FullFileName, ",
+            "SecAccounts, ",
             "",
             "[BANKACCOUNT FIELDS]",
-            "BankACNumber",
-            "CustACNumber",
-            "AccountType",
-            "Balance",
-            "OpenDate",
-            "CloseDate",
-            "InterestRate",
-            "Status",
+            "BankACNumber, ",
+            "CustACNumber, ",
+            "AccountType, ",
+            "Balance, ",
+            "OpenDate, ",
+            "CloseDate, ",
+            "InterestRate, ",
+            "Status, ",
             "",
             "[SECONDARYCUSTACCOUNTS]",
-            "AccountType",
-            "AccountNum",
+            "AccountType, ",
+            "AccountNum, ",
             "",
             "(ONLY Add this if you are Updating or inserting new data)",
             "& only AFTER you have entered ALL the fields to be displayed",
             "",
             "Values ( ",
             "",
-            "These functions are ONLY to be used when ADDING or UPDATING data",
+            "(",
             "[Select Function() for (Value data entry eg : DOB = GetRandomSQLDate)]",
             "[ in correct sequence ]",
             "GetRandomSQLdate",
@@ -490,26 +495,30 @@
             "from Customer  ",
             "from SecondaryCustAccounts ",
             ""});
-			this.sqlcommandslist.Location = new System.Drawing.Point(474, 280);
-			this.sqlcommandslist.Name = "sqlcommandslist";
-			this.sqlcommandslist.Size = new System.Drawing.Size(354, 100);
-			this.sqlcommandslist.TabIndex = 26;
-			this.sqlcommandslist.SelectedIndexChanged += new System.EventHandler(this.sqlcommandslist_SelectedIndexChanged);
-			this.sqlcommandslist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.sqlcommandslist_MouseDoubleClick_1);
+			this.sqlcommandlist.Location = new System.Drawing.Point(474, 280);
+			this.sqlcommandlist.Name = "sqlcommandlist";
+			this.sqlcommandlist.Size = new System.Drawing.Size(354, 100);
+			this.sqlcommandlist.TabIndex = 26;
+			this.sqlcommandlist.SelectedIndexChanged += new System.EventHandler(this.sqlcommandslist_SelectedIndexChanged);
+			this.sqlcommandlist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.sqlcommandslist_MouseDoubleClick_1);
 			// 
-			// MathsValues
+			// sqlcommandvalues
 			// 
-			this.MathsValues.BackColor = System.Drawing.SystemColors.InactiveCaption;
-			this.MathsValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MathsValues.HorizontalScrollbar = true;
-			this.MathsValues.IntegralHeight = false;
-			this.MathsValues.ItemHeight = 16;
-			this.MathsValues.Items.AddRange(new object[] {
+			this.sqlcommandvalues.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.sqlcommandvalues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.sqlcommandvalues.HorizontalScrollbar = true;
+			this.sqlcommandvalues.IntegralHeight = false;
+			this.sqlcommandvalues.ItemHeight = 16;
+			this.sqlcommandvalues.Items.AddRange(new object[] {
+            "|",
             "-1",
-            "-1",
+            "1",
+            "14",
             "1",
             "1",
-            "1",
+            "11",
+            "12",
+            "13",
             "2",
             "2",
             "2",
@@ -520,7 +529,7 @@
             "4",
             "4",
             "-1",
-            "-1",
+            "-4",
             "5",
             "5",
             "5",
@@ -535,8 +544,8 @@
             "5",
             "5",
             "5",
-            "-1",
-            "-1",
+            "-4",
+            "-4",
             "6",
             "6",
             "6",
@@ -545,19 +554,19 @@
             "6",
             "6",
             "6",
-            "-1",
-            "-1",
+            "-5",
+            "-5",
             "7",
             "7",
-            "-1",
-            "-1",
-            "-1",
-            "-1",
+            "-2",
+            "-2",
+            "-2",
+            "-2",
             "8",
-            "-1",
-            "-1",
-            "-1",
-            "-1",
+            "8",
+            "8",
+            "-3",
+            "-3",
             "9",
             "9",
             "9",
@@ -565,27 +574,53 @@
             "9",
             "9",
             "9",
-            "-1",
-            "-1",
+            "-4",
+            "-4",
             "10",
             "10",
             "10",
             "99",
             "99"});
-			this.MathsValues.Location = new System.Drawing.Point(394, 279);
-			this.MathsValues.Name = "MathsValues";
-			this.MathsValues.Size = new System.Drawing.Size(74, 100);
-			this.MathsValues.TabIndex = 27;
-			this.MathsValues.Visible = false;
+			this.sqlcommandvalues.Location = new System.Drawing.Point(394, 279);
+			this.sqlcommandvalues.Name = "sqlcommandvalues";
+			this.sqlcommandvalues.Size = new System.Drawing.Size(74, 100);
+			this.sqlcommandvalues.TabIndex = 27;
+			this.sqlcommandvalues.Visible = false;
 			// 
-			// sqlconnector
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Gold;
+			this.button1.ForeColor = System.Drawing.Color.Black;
+			this.button1.Location = new System.Drawing.Point(747, 432);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(81, 40);
+			this.button1.TabIndex = 28;
+			this.button1.Text = "<<-- Clear List";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click_1);
+			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.Gold;
+			this.button2.ForeColor = System.Drawing.Color.Black;
+			this.button2.Location = new System.Drawing.Point(747, 386);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(81, 40);
+			this.button2.TabIndex = 29;
+			this.button2.Text = "^^ Reset Selection List";
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// SqlConnector
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
 			this.ClientSize = new System.Drawing.Size(840, 560);
-			this.Controls.Add(this.MathsValues);
-			this.Controls.Add(this.sqlcommandslist);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.button1);
+			this.Controls.Add(this.sqlcommandvalues);
+			this.Controls.Add(this.sqlcommandlist);
 			this.Controls.Add(this.Data);
 			this.Controls.Add(this.schemas);
 			this.Controls.Add(this.MathCommands);
@@ -606,8 +641,8 @@
 			this.Controls.Add(this.info);
 			this.Controls.Add(this.sqlDisconnect);
 			this.Controls.Add(this.sqlConnect);
-			this.Name = "sqlconnector";
-			this.Text = "SQL Connection";
+			this.Name = "SqlConnector";
+			this.Text = "SQL Connection Tool for beginners";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -638,53 +673,56 @@
 		//		private ian1CustDataSet ian1DataSet;
 		private System.Windows.Forms.BindingSource customerBindingSource;
 		//		private ian1BankDataSet ian1DataSet;
-//		private System.Windows.Forms.BindingSource bankBindingSource;
+		//		private System.Windows.Forms.BindingSource bankBindingSource;
 		//		private ian1BankDataSet ian1DataSet1;
-/*		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn customerNumberDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn phoneNumberDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn mobileNumberDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn address1DataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn address2DataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn townDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn countyDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn postcodeDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dOBDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn fileNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn fullFileNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn secAccountsDataGridViewTextBoxColumn;
-		//		private System.Windows.Forms.DataGridView dgBankView;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-		private ian1DataSet ian1DataSet;
-		private System.Windows.Forms.BindingSource customerBindingSource1;
-		private ian1DataSetTableAdapters.CustomerTableAdapter customerTableAdapter;
-		public static System.Windows.Forms.TextBox data;
-/*		private System.Windows.Forms.TextBox Data;
-		private System.Windows.Forms.DataGridViewTextBoxColumn CustomerNumber;
-		private System.Windows.Forms.DataGridViewTextBoxColumn me;
-		private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
-		private System.Windows.Forms.DataGridView dgCustView;
-		private System.Windows.Forms.TextBox dgView;
-*/		private System.Windows.Forms.Button schemas;
+		/*		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn customerNumberDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn phoneNumberDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn mobileNumberDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn address1DataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn address2DataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn townDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn countyDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn postcodeDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dOBDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn fileNameDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn fullFileNameDataGridViewTextBoxColumn;
+				private System.Windows.Forms.DataGridViewTextBoxColumn secAccountsDataGridViewTextBoxColumn;
+				//		private System.Windows.Forms.DataGridView dgBankView;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+				private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+				private ian1DataSet ian1DataSet;
+				private System.Windows.Forms.BindingSource customerBindingSource1;
+				private ian1DataSetTableAdapters.CustomerTableAdapter customerTableAdapter;
+				public static System.Windows.Forms.TextBox data;
+		/*		private System.Windows.Forms.TextBox Data;
+				private System.Windows.Forms.DataGridViewTextBoxColumn CustomerNumber;
+				private System.Windows.Forms.DataGridViewTextBoxColumn me;
+				private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
+				private System.Windows.Forms.DataGridView dgCustView;
+				private System.Windows.Forms.TextBox dgView;
+		*/
+		private System.Windows.Forms.Button schemas;
 		private System.Windows.Forms.RichTextBox Data;
-		private System.Windows.Forms.ListBox sqlcommandslist;
-		private System.Windows.Forms.ListBox MathsValues;
+		private System.Windows.Forms.ListBox sqlcommandlist;
+		private System.Windows.Forms.ListBox sqlcommandvalues;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
 		//		private System.Windows.Forms.BindingSource bankBindingSource;
 	}
 }

@@ -732,7 +732,7 @@
             this.rundelegate.TabStop = false;
             this.rundelegate.Text = "Run Delegate";
             this.rundelegate.UseVisualStyleBackColor = false;
-            this.rundelegate.Click += new System.EventHandler(this.Rundelegate_Click);
+//            this.rundelegate.Click += new System.EventHandler(this.Rundelegate_Click);
             // 
             // bankasc
             // 
